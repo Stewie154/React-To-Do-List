@@ -1,6 +1,6 @@
 import React from 'react';
 
-const Form = ({ setInputText }) => {
+const Form = ({ inputText, setInputText, toDos, setToDos }) => {
 
     //Here I can write JavaScript code and functions
     const inputTextHandler = (e) => {
@@ -9,14 +9,27 @@ const Form = ({ setInputText }) => {
         
     };
 
+    const submitToDoHandler = (e) => {
+        e.preventDefault();
+        setToDos([
+            ...toDos, {
+                text: inputText,
+                completed: false, 
+                id: Math.random() * 1000
+            }
+        ]);
+        setInputText('');
+    }
+
     return(
         <form>
             <input 
                 type="text" 
+                value={inputText}
                 className="todo-input" 
                 onChange={inputTextHandler}    
             />
-            <button className="todo-button" type="submit">
+            <button onClick={submitToDoHandler} className="todo-button" type="submit">
              <i className="fas fa-plus-square"></i>
             </button>
             <div className="select">
